@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Живу. Люблю. Радуюсь. Творю. Благодарю.</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-page: #F9F6F0;
+      --text-main: #2B2B28;
+      --radius: 16px;
+      --shadow: 0 4px 20px rgba(43, 43, 40, 0.08);
+      --shadow-hover: 0 6px 28px rgba(43, 43, 40, 0.12);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      padding: 1.5rem 1rem 2.5rem;
+    }
+
+    body.scroll-lock {
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 0 0.5rem;
+    }
+
+    h1 {
+      font-size: clamp(1.25rem, 4.5vw, 1.6rem);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1.35;
+    }
+
+    .date-today {
+      margin-top: 0.65rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      opacity: 0.72;
+      text-transform: capitalize;
+    }
+
+    .sections {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .section {
+      border-radius: var(--radius);
+      padding: 1.25rem 1.35rem;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .section:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .section--light {
+      color: #F9F6F0;
+    }
+
+    .section--dark {
+      color: var(--text-main);
+    }
+
+    .section__title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      cursor: pointer;
+      padding: 0.5rem 0.6rem;
+      margin: -0.5rem -0.6rem;
+      border-radius: 10px;
+      transition: background 0.15s ease;
+    }
+
+    .item:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .section--dark .item:hover {
+      background: rgba(43, 43, 40, 0.06);
+    }
+
+    .item input[type="checkbox"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-top: 0.15rem;
+      flex-shrink: 0;
+      accent-color: currentColor;
+      cursor: pointer;
+    }
+
+    .section--light .item input[type="checkbox"] {
+      accent-color: #F9F6F0;
+    }
+
+    .item__content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item__label {
+      font-weight: 600;
+      font-size: 1rem;
+      display: block;
+    }
+
+    .item--zhivu {
+      cursor: default;
+    }
+
+    .item__label-btn {
+      font-weight: 600;
+      font-size: 1rem;
+      display: block;
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      color: inherit;
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: opacity 0.15s ease;
+    }
+
+    .item__label-btn:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .item__label-btn.has-note::after {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-left: 0.35rem;
+      margin-bottom: 0.1rem;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.55;
+      vertical-align: middle;
+    }
+
+    .item--done .item__label,
+    .item--done .item__label-btn {
+      opacity: 0.65;
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+    }
+
+    .item--done .item__label-btn:hover {
+      text-decoration: line-through underline;
+    }
+
+    .gratitude-field {
+      margin-top: 1rem;
+    }
+
+    .gratitude-field label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .gratitude-field textarea {
+      width: 100%;
+      min-height: 88px;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.55);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      resize: vertical;
+      box-shadow: inset 0 1px 3px rgba(43, 43, 40, 0.06);
+      transition: background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .gratitude-field textarea::placeholder {
+      color: rgba(43, 43, 40, 0.45);
+    }
+
+    .gratitude-field textarea:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.75);
+      box-shadow: inset 0 1px 3px rgba(43, 43, 40, 0.08), 0 0 0 2px rgba(43, 43, 40, 0.12);
+    }
+
+    .footer-actions {
+      margin-top: 1.75rem;
+      text-align: center;
+    }
+
+    .btn-history {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.25rem;
+      border: none;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-history:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn-history:active {
+      transform: scale(0.98);
+    }
+
+    .history-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(43, 43, 40, 0.35);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      z-index: 100;
+    }
+
+    .history-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .history-panel {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-height: 85vh;
+      background: var(--bg-page);
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: 0 -8px 32px rgba(43, 43, 40, 0.12);
+      z-index: 101;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .history-panel.is-open {
+      transform: translateY(0);
+    }
+
+    .history-panel__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.15rem 1.25rem;
+      border-bottom: 1px solid rgba(43, 43, 40, 0.08);
+      flex-shrink: 0;
+    }
+
+    .history-panel__title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .btn-close {
+      width: 2rem;
+      height: 2rem;
+      border: none;
+      border-radius: 50%;
+      background: rgba(43, 43, 40, 0.06);
+      color: var(--text-main);
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .btn-close:hover {
+      background: rgba(43, 43, 40, 0.12);
+    }
+
+    .history-panel__body {
+      overflow-y: auto;
+      padding: 1rem 1.25rem 1.5rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .history-empty {
+      text-align: center;
+      padding: 2rem 1rem;
+      opacity: 0.55;
+      font-size: 0.9375rem;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .history-day {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .history-day__date {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      margin-bottom: 0.65rem;
+      text-transform: capitalize;
+    }
+
+    .history-day__checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .history-tag {
+      font-size: 0.8125rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(90, 91, 55, 0.1);
+      color: var(--text-main);
+    }
+
+    .history-day__none {
+      font-size: 0.875rem;
+      opacity: 0.5;
+      font-style: italic;
+    }
+
+    .history-day__gratitude {
+      font-size: 0.875rem;
+      line-height: 1.55;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(43, 43, 40, 0.08);
+      margin-top: 0.5rem;
+      white-space: pre-wrap;
+    }
+
+    .history-day__gratitude-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.5;
+      margin-bottom: 0.35rem;
+    }
+
+    @media (min-width: 600px) {
+      .history-panel {
+        left: auto;
+        right: 1.5rem;
+        bottom: 1.5rem;
+        width: 360px;
+        max-height: calc(100vh - 3rem);
+        border-radius: var(--radius);
+        transform: translateX(calc(100% + 1.5rem));
+      }
+
+      .history-panel.is-open {
+        transform: translateX(0);
+      }
+    }
+
+    .note-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(43, 43, 40, 0.35);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .note-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .note-modal {
+      background: var(--bg-page);
+      color: var(--text-main);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-hover);
+      max-width: 440px;
+      width: 100%;
+      padding: 1.35rem 1.4rem 1.25rem;
+      transform: scale(0.96);
+      transition: transform 0.25s ease;
+    }
+
+    .note-overlay.is-open .note-modal {
+      transform: scale(1);
+    }
+
+    .note-modal__title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+      line-height: 1.35;
+    }
+
+    .note-modal__hint {
+      font-size: 0.8125rem;
+      opacity: 0.55;
+      margin-bottom: 0.5rem;
+    }
+
+    .note-modal__textarea {
+      width: 100%;
+      min-height: 140px;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      resize: vertical;
+      box-shadow: inset 0 1px 3px rgba(43, 43, 40, 0.06);
+      transition: box-shadow 0.15s ease;
+    }
+
+    .note-modal__textarea::placeholder {
+      color: rgba(43, 43, 40, 0.4);
+    }
+
+    .note-modal__textarea:focus {
+      outline: none;
+      box-shadow: inset 0 1px 3px rgba(43, 43, 40, 0.08), 0 0 0 2px rgba(43, 43, 40, 0.1);
+    }
+
+    .note-modal__footer {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .btn-close-modal {
+      padding: 0.6rem 1.5rem;
+      border: none;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-close-modal:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn-close-modal:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 380px) {
+      body {
+        padding: 1rem 0.75rem 2rem;
+      }
+
+      .section {
+        padding: 1.1rem 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Живу. Люблю. Радуюсь. Творю. Благодарю.</h1>
+      <p class="date-today" id="date-today"></p>
+    </header>
+
+    <main class="sections">
+      <section class="section section--light" style="background-color: #5A5B37;" data-section="zhivu">
+        <h2 class="section__title">ЖИВУ</h2>
+        <div class="items items--zhivu">
+          <div class="item item--zhivu" data-key="zhivu-air">
+            <input type="checkbox" name="zhivu-air" id="zhivu-air">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="zhivu-air">🌬️ Воздух</button>
+            </div>
+          </div>
+          <div class="item item--zhivu" data-key="zhivu-water">
+            <input type="checkbox" name="zhivu-water" id="zhivu-water">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="zhivu-water">💧 Вода</button>
+            </div>
+          </div>
+          <div class="item item--zhivu" data-key="zhivu-selfcare">
+            <input type="checkbox" name="zhivu-selfcare" id="zhivu-selfcare">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="zhivu-selfcare">✨ Уход за собой</button>
+            </div>
+          </div>
+          <div class="item item--zhivu" data-key="zhivu-sun">
+            <input type="checkbox" name="zhivu-sun" id="zhivu-sun">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="zhivu-sun">☀️ Солнце / Свет</button>
+            </div>
+          </div>
+          <div class="item item--zhivu" data-key="zhivu-food">
+            <input type="checkbox" name="zhivu-food" id="zhivu-food">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="zhivu-food">🍽️ Еда</button>
+            </div>
+          </div>
+          <div class="item item--zhivu" data-key="zhivu-body">
+            <input type="checkbox" name="zhivu-body" id="zhivu-body">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="zhivu-body">🏃‍♀️ Физическая активность</button>
+            </div>
+          </div>
+          <div class="item item--zhivu" data-key="zhivu-silence">
+            <input type="checkbox" name="zhivu-silence" id="zhivu-silence">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="zhivu-silence">🧘‍♀️ Тишина / Пауза</button>
+            </div>
+          </div>
+          <div class="item item--zhivu" data-key="zhivu-sleep">
+            <input type="checkbox" name="zhivu-sleep" id="zhivu-sleep">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="zhivu-sleep">😴 Сон</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--light" style="background-color: #AE4707;" data-section="lublu">
+        <h2 class="section__title">ЛЮБЛЮ</h2>
+        <div class="items">
+          <label class="item" data-key="lublu">
+            <input type="checkbox" name="lublu">
+            <span class="item__content">
+              <span class="item__label">Люблю</span>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="section section--dark" style="background-color: #89C0DF;" data-section="raduyus">
+        <h2 class="section__title">РАДУЮСЬ</h2>
+        <div class="items">
+          <label class="item" data-key="raduyus">
+            <input type="checkbox" name="raduyus">
+            <span class="item__content">
+              <span class="item__label">Радуюсь</span>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="section section--light" style="background-color: #1D4A5A;" data-section="tvoryu">
+        <h2 class="section__title">ТВОРЮ</h2>
+        <div class="items">
+          <label class="item" data-key="tvoryu">
+            <input type="checkbox" name="tvoryu">
+            <span class="item__content">
+              <span class="item__label">Творю</span>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="section section--dark" style="background-color: #F2D184;" data-section="blagodaryu">
+        <h2 class="section__title">БЛАГОДАРЮ</h2>
+        <div class="items">
+          <label class="item" data-key="blagodaryu">
+            <input type="checkbox" name="blagodaryu">
+            <span class="item__content">
+              <span class="item__label">Благодарю</span>
+            </span>
+          </label>
+        </div>
+        <div class="gratitude-field">
+          <label for="gratitude-text">Записать благодарности дня</label>
+          <textarea id="gratitude-text" name="gratitude" placeholder="За что благодарна сегодня…" rows="3"></textarea>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer-actions">
+      <button type="button" class="btn-history" id="btn-history" aria-expanded="false" aria-controls="history-panel">
+        История
+      </button>
+    </div>
+  </div>
+
+  <div class="note-overlay" id="note-overlay" hidden aria-hidden="true">
+    <div class="note-modal" role="dialog" aria-labelledby="note-modal-title" aria-modal="true">
+      <h2 class="note-modal__title" id="note-modal-title"></h2>
+      <p class="note-modal__hint">Мои правила и заметки</p>
+      <textarea class="note-modal__textarea" id="note-modal-text" placeholder="Запишите свои правила для этого пункта…" rows="5"></textarea>
+      <div class="note-modal__footer">
+        <button type="button" class="btn-close-modal" id="btn-close-note">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="history-overlay" id="history-overlay" hidden></div>
+  <aside class="history-panel" id="history-panel" role="dialog" aria-labelledby="history-title" aria-hidden="true">
+    <div class="history-panel__header">
+      <h2 class="history-panel__title" id="history-title">История</h2>
+      <button type="button" class="btn-close" id="btn-close-history" aria-label="Закрыть">×</button>
+    </div>
+    <div class="history-panel__body" id="history-body"></div>
+  </aside>
+
+  <script>
+    const STORAGE_KEY = 'zhivu-lublu-raduyus-tracker';
+    const HISTORY_KEY = 'zhivu-lublu-raduyus-history';
+    const NOTES_KEY = 'zhivu-lublu-raduyus-zhivu-notes';
+
+    const LABELS = {
+      'zhivu-air': '🌬️ Воздух',
+      'zhivu-water': '💧 Вода',
+      'zhivu-selfcare': '✨ Уход за собой',
+      'zhivu-sun': '☀️ Солнце / Свет',
+      'zhivu-food': '🍽️ Еда',
+      'zhivu-body': '🏃‍♀️ Физическая активность',
+      'zhivu-silence': '🧘‍♀️ Тишина / Пауза',
+      'zhivu-sleep': '😴 Сон',
+      lublu: 'Люблю',
+      raduyus: 'Радуюсь',
+      tvoryu: 'Творю',
+      blagodaryu: 'Благодарю',
+    };
+
+    const ALL_KEYS = Object.keys(LABELS);
+
+    function todayISO() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function formatDate(iso) {
+      const [y, m, d] = iso.split('-').map(Number);
+      return new Date(y, m - 1, d).toLocaleDateString('ru-RU', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
+    }
+
+    function loadHistory() {
+      try {
+        const raw = localStorage.getItem(HISTORY_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveHistory(history) {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    }
+
+    function loadRawState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function migrateState(raw) {
+      const today = todayISO();
+      if (!raw) {
+        return { date: today, checks: {}, gratitude: '' };
+      }
+      if (raw.date && typeof raw.checks === 'object') {
+        return raw;
+      }
+      const checks = {};
+      ALL_KEYS.forEach((key) => {
+        if (raw[key]) checks[key] = true;
+      });
+      return {
+        date: today,
+        checks,
+        gratitude: raw.gratitude || '',
+      };
+    }
+
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function hasActivity(entry) {
+      const checked = ALL_KEYS.some((key) => entry.checks[key]);
+      const gratitude = (entry.gratitude || '').trim();
+      return checked || gratitude;
+    }
+
+    function archiveDay(state, history) {
+      const entry = {
+        date: state.date,
+        checks: { ...state.checks },
+        gratitude: state.gratitude || '',
+      };
+      if (!hasActivity(entry)) return history;
+
+      const idx = history.findIndex((h) => h.date === entry.date);
+      if (idx >= 0) {
+        history[idx] = entry;
+      } else {
+        history.unshift(entry);
+      }
+      history.sort((a, b) => b.date.localeCompare(a.date));
+      return history;
+    }
+
+    function resetForNewDay(state) {
+      state.date = todayISO();
+      state.checks = {};
+      state.gratitude = '';
+      return state;
+    }
+
+    let history = loadHistory();
+    let state = migrateState(loadRawState());
+    const today = todayISO();
+
+    if (state.date !== today) {
+      history = archiveDay(state, history);
+      saveHistory(history);
+      state = resetForNewDay(state);
+      saveState(state);
+    } else if (!loadRawState()?.date) {
+      state.date = today;
+      saveState(state);
+    }
+
+    document.getElementById('date-today').textContent = formatDate(today);
+
+    function updateItemStyle(checkbox) {
+      checkbox.closest('.item').classList.toggle('item--done', checkbox.checked);
+    }
+
+    function applyUI() {
+      document.querySelectorAll('.item input[type="checkbox"]').forEach((checkbox) => {
+        const key = checkbox.closest('.item').dataset.key;
+        checkbox.checked = Boolean(state.checks[key]);
+        updateItemStyle(checkbox);
+      });
+      document.getElementById('gratitude-text').value = state.gratitude || '';
+    }
+
+    applyUI();
+
+    function loadNotes() {
+      try {
+        const raw = localStorage.getItem(NOTES_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch {
+        return {};
+      }
+    }
+
+    function saveNotes(notes) {
+      localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+    }
+
+    let notes = loadNotes();
+    let activeNoteKey = null;
+    let saveNoteTimer;
+
+    function updateNoteIndicators() {
+      document.querySelectorAll('.item__label-btn').forEach((btn) => {
+        const key = btn.dataset.noteKey;
+        btn.classList.toggle('has-note', Boolean((notes[key] || '').trim()));
+      });
+    }
+
+    updateNoteIndicators();
+
+    const noteOverlay = document.getElementById('note-overlay');
+    const noteTitle = document.getElementById('note-modal-title');
+    const noteText = document.getElementById('note-modal-text');
+    const btnCloseNote = document.getElementById('btn-close-note');
+
+    function openNoteModal(key) {
+      activeNoteKey = key;
+      noteTitle.textContent = LABELS[key] || key;
+      noteText.value = notes[key] || '';
+      noteOverlay.hidden = false;
+      noteOverlay.setAttribute('aria-hidden', 'false');
+      requestAnimationFrame(() => noteOverlay.classList.add('is-open'));
+      document.body.classList.add('scroll-lock');
+      noteText.focus();
+    }
+
+    function closeNoteModal() {
+      if (activeNoteKey) {
+        notes[activeNoteKey] = noteText.value;
+        saveNotes(notes);
+        updateNoteIndicators();
+        activeNoteKey = null;
+      }
+      noteOverlay.classList.remove('is-open');
+      noteOverlay.setAttribute('aria-hidden', 'true');
+      if (!panel.classList.contains('is-open')) {
+        document.body.classList.remove('scroll-lock');
+      }
+      setTimeout(() => {
+        noteOverlay.hidden = true;
+      }, 250);
+    }
+
+    document.querySelectorAll('.item__label-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openNoteModal(btn.dataset.noteKey);
+      });
+    });
+
+    noteText.addEventListener('input', () => {
+      if (!activeNoteKey) return;
+      clearTimeout(saveNoteTimer);
+      saveNoteTimer = setTimeout(() => {
+        notes[activeNoteKey] = noteText.value;
+        saveNotes(notes);
+        updateNoteIndicators();
+      }, 300);
+    });
+
+    btnCloseNote.addEventListener('click', closeNoteModal);
+    noteOverlay.addEventListener('click', (e) => {
+      if (e.target === noteOverlay) closeNoteModal();
+    });
+
+    document.querySelectorAll('.item input[type="checkbox"]').forEach((checkbox) => {
+      checkbox.addEventListener('change', () => {
+        const key = checkbox.closest('.item').dataset.key;
+        if (checkbox.checked) {
+          state.checks[key] = true;
+        } else {
+          delete state.checks[key];
+        }
+        saveState(state);
+        updateItemStyle(checkbox);
+      });
+    });
+
+    const gratitudeText = document.getElementById('gratitude-text');
+    let saveTextTimer;
+
+    gratitudeText.addEventListener('input', () => {
+      clearTimeout(saveTextTimer);
+      saveTextTimer = setTimeout(() => {
+        state.gratitude = gratitudeText.value;
+        saveState(state);
+      }, 300);
+    });
+
+    function renderHistory() {
+      const body = document.getElementById('history-body');
+
+      if (history.length === 0) {
+        body.innerHTML = '<p class="history-empty">Пока нет записей за прошлые дни</p>';
+        return;
+      }
+
+      body.innerHTML = `<div class="history-list">${history.map((day) => {
+        const checkedLabels = ALL_KEYS
+          .filter((key) => day.checks[key])
+          .map((key) => LABELS[key]);
+
+        const checksHtml = checkedLabels.length
+          ? `<div class="history-day__checks">${checkedLabels.map((l) => `<span class="history-tag">${l}</span>`).join('')}</div>`
+          : '<p class="history-day__none">Без отметок</p>';
+
+        const gratitude = (day.gratitude || '').trim();
+        const gratitudeHtml = gratitude
+          ? `<div class="history-day__gratitude"><div class="history-day__gratitude-label">Благодарности</div>${escapeHtml(gratitude)}</div>`
+          : '';
+
+        return `
+          <article class="history-day">
+            <div class="history-day__date">${formatDate(day.date)}</div>
+            ${checksHtml}
+            ${gratitudeHtml}
+          </article>
+        `;
+      }).join('')}</div>`;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    const overlay = document.getElementById('history-overlay');
+    const panel = document.getElementById('history-panel');
+    const btnHistory = document.getElementById('btn-history');
+    const btnClose = document.getElementById('btn-close-history');
+
+    function openHistory() {
+      renderHistory();
+      overlay.hidden = false;
+      requestAnimationFrame(() => {
+        overlay.classList.add('is-open');
+        panel.classList.add('is-open');
+      });
+      panel.setAttribute('aria-hidden', 'false');
+      btnHistory.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('scroll-lock');
+    }
+
+    function closeHistory() {
+      overlay.classList.remove('is-open');
+      panel.classList.remove('is-open');
+      panel.setAttribute('aria-hidden', 'true');
+      btnHistory.setAttribute('aria-expanded', 'false');
+      if (!noteOverlay.classList.contains('is-open')) {
+        document.body.classList.remove('scroll-lock');
+      }
+      setTimeout(() => {
+        overlay.hidden = true;
+      }, 300);
+    }
+
+    btnHistory.addEventListener('click', openHistory);
+    btnClose.addEventListener('click', closeHistory);
+    overlay.addEventListener('click', closeHistory);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (noteOverlay.classList.contains('is-open')) {
+        closeNoteModal();
+      } else if (panel.classList.contains('is-open')) {
+        closeHistory();
+      }
+    });
+  </script>
+</body>
+</html>
