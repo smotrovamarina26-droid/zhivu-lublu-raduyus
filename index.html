@@ -163,6 +163,55 @@
       background: #F9F6F0;
     }
 
+    .food-meals {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    .food-meal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .food-meal__label {
+      font-size: 0.625rem;
+      font-weight: 500;
+      line-height: 1.1;
+      opacity: 0.88;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .meal-dot {
+      width: 1.125rem;
+      height: 1.125rem;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .meal-dot:hover {
+      transform: scale(1.08);
+    }
+
+    .meal-dot--filled {
+      background: currentColor;
+    }
+
+    .section--light .meal-dot {
+      border-color: #F9F6F0;
+    }
+
+    .section--light .meal-dot--filled {
+      background: #F9F6F0;
+    }
+
     .section--light .item input[type="checkbox"] {
       accent-color: #F9F6F0;
     }
@@ -597,12 +646,23 @@
               <input type="checkbox" name="zhivu-sun" id="zhivu-sun" aria-label="Солнце / Свет">
             </div>
           </div>
-          <div class="item item--zhivu" data-key="zhivu-food">
+          <div class="item item--zhivu item--food" data-key="zhivu-food">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-food">Еда</button>
             </div>
-            <div class="item__mark">
-              <input type="checkbox" name="zhivu-food" id="zhivu-food" aria-label="Еда">
+            <div class="item__mark food-meals" role="group" aria-label="Еда">
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="0" aria-label="Завтрак"></button>
+                <span class="food-meal__label">Завтрак</span>
+              </div>
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="1" aria-label="Обед"></button>
+                <span class="food-meal__label">Обед</span>
+              </div>
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="2" aria-label="Ужин"></button>
+                <span class="food-meal__label">Ужин</span>
+              </div>
             </div>
           </div>
           <div class="item item--zhivu" data-key="zhivu-home">
@@ -703,14 +763,22 @@
       <section class="section section--light" style="background-color: #1D4A5A;" data-section="tvoryu">
         <h2 class="section__title">ТВОРЮ</h2>
         <div class="items">
-          <label class="item" data-key="tvoryu">
-            <span class="item__content">
-              <span class="item__label">Творю</span>
-            </span>
-            <span class="item__mark">
-              <input type="checkbox" name="tvoryu">
-            </span>
-          </label>
+          <div class="item item--zhivu" data-key="tvoryu-creative">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="tvoryu-creative">Творчество / Вдохновение</button>
+            </div>
+            <div class="item__mark">
+              <input type="checkbox" name="tvoryu-creative" id="tvoryu-creative" aria-label="Творчество / Вдохновение">
+            </div>
+          </div>
+          <div class="item item--zhivu" data-key="tvoryu-work">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="tvoryu-work">Рабочие задачи</button>
+            </div>
+            <div class="item__mark">
+              <input type="checkbox" name="tvoryu-work" id="tvoryu-work" aria-label="Рабочие задачи">
+            </div>
+          </div>
         </div>
       </section>
 
@@ -781,15 +849,22 @@
       'lublu-mom': 'Любовь к маме',
       'lublu-dad': 'Любовь к папе',
       raduyus: 'Радуюсь',
-      tvoryu: 'Творю',
+      'tvoryu-creative': 'Творчество / Вдохновение',
+      'tvoryu-work': 'Рабочие задачи',
       blagodaryu: 'Благодарю',
     };
 
     const ALL_KEYS = Object.keys(LABELS);
     const WATER_DOTS = 6;
+    const FOOD_MEALS = 3;
+    const MEAL_LABELS = ['Завтрак', 'Обед', 'Ужин'];
 
     function emptyWaterDots() {
       return Array(WATER_DOTS).fill(false);
+    }
+
+    function emptyFoodMeals() {
+      return Array(FOOD_MEALS).fill(false);
     }
 
     function normalizeWaterDots(waterDots) {
@@ -799,6 +874,13 @@
       return waterDots.map(Boolean);
     }
 
+    function normalizeFoodMeals(foodMeals) {
+      if (!Array.isArray(foodMeals) || foodMeals.length !== FOOD_MEALS) {
+        return emptyFoodMeals();
+      }
+      return foodMeals.map(Boolean);
+    }
+
     function migrateWaterFromChecks(checks, waterDots) {
       const dots = normalizeWaterDots(waterDots);
       if (checks['zhivu-water']) {
@@ -806,6 +888,15 @@
         delete checks['zhivu-water'];
       }
       return dots;
+    }
+
+    function migrateFoodFromChecks(checks, foodMeals) {
+      const meals = normalizeFoodMeals(foodMeals);
+      if (checks['zhivu-food']) {
+        meals[0] = true;
+        delete checks['zhivu-food'];
+      }
+      return meals;
     }
 
     function todayISO() {
@@ -851,7 +942,13 @@
     function migrateState(raw) {
       const today = todayISO();
       if (!raw) {
-        return { date: today, checks: {}, waterDots: emptyWaterDots(), gratitude: '' };
+        return {
+          date: today,
+          checks: {},
+          waterDots: emptyWaterDots(),
+          foodMeals: emptyFoodMeals(),
+          gratitude: '',
+        };
       }
       if (raw.date && typeof raw.checks === 'object') {
         const checks = { ...raw.checks };
@@ -859,19 +956,23 @@
           date: raw.date,
           checks,
           waterDots: migrateWaterFromChecks(checks, raw.waterDots),
+          foodMeals: migrateFoodFromChecks(checks, raw.foodMeals),
           gratitude: raw.gratitude || '',
         };
       }
       const checks = {};
       ALL_KEYS.forEach((key) => {
-        if (key !== 'zhivu-water' && raw[key]) checks[key] = true;
+        if (key !== 'zhivu-water' && key !== 'zhivu-food' && raw[key]) checks[key] = true;
       });
       const waterDots = emptyWaterDots();
       if (raw['zhivu-water']) waterDots[0] = true;
+      const foodMeals = emptyFoodMeals();
+      if (raw['zhivu-food']) foodMeals[0] = true;
       return {
         date: today,
         checks,
         waterDots,
+        foodMeals,
         gratitude: raw.gratitude || '',
       };
     }
@@ -881,10 +982,14 @@
     }
 
     function hasActivity(entry) {
-      const checked = ALL_KEYS.some((key) => key !== 'zhivu-water' && entry.checks[key]);
+      const checked = ALL_KEYS.some((key) => {
+        if (key === 'zhivu-water' || key === 'zhivu-food') return false;
+        return entry.checks[key];
+      });
       const water = normalizeWaterDots(entry.waterDots).some(Boolean);
+      const food = normalizeFoodMeals(entry.foodMeals).some(Boolean);
       const gratitude = (entry.gratitude || '').trim();
-      return checked || water || gratitude;
+      return checked || water || food || gratitude;
     }
 
     function archiveDay(state, history) {
@@ -892,6 +997,7 @@
         date: state.date,
         checks: { ...state.checks },
         waterDots: [...normalizeWaterDots(state.waterDots)],
+        foodMeals: [...normalizeFoodMeals(state.foodMeals)],
         gratitude: state.gratitude || '',
       };
       if (!hasActivity(entry)) return history;
@@ -910,6 +1016,7 @@
       state.date = todayISO();
       state.checks = {};
       state.waterDots = emptyWaterDots();
+      state.foodMeals = emptyFoodMeals();
       state.gratitude = '';
       return state;
     }
@@ -939,12 +1046,22 @@
       });
     }
 
+    function applyFoodUI() {
+      document.querySelectorAll('.meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.foodMeals[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
     function applyUI() {
       document.querySelectorAll('.item input[type="checkbox"]').forEach((checkbox) => {
         const key = checkbox.closest('.item').dataset.key;
         checkbox.checked = Boolean(state.checks[key]);
       });
       applyWaterUI();
+      applyFoodUI();
       document.getElementById('gratitude-text').value = state.gratitude || '';
     }
 
@@ -1053,6 +1170,16 @@
       });
     });
 
+    document.querySelectorAll('.meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.foodMeals[index] = !state.foodMeals[index];
+        saveState(state);
+        applyFoodUI();
+      });
+    });
+
     const gratitudeText = document.getElementById('gratitude-text');
     let saveTextTimer;
 
@@ -1073,6 +1200,18 @@
           if (count > 0) {
             tags.push(`Вода (${count}/${WATER_DOTS})`);
           } else if (day.checks['zhivu-water']) {
+            tags.push(LABELS[key]);
+          }
+          return;
+        }
+        if (key === 'zhivu-food') {
+          const meals = day.foodMeals ? normalizeFoodMeals(day.foodMeals) : null;
+          const filled = meals
+            ? MEAL_LABELS.filter((label, i) => meals[i])
+            : [];
+          if (filled.length > 0) {
+            tags.push(`Еда (${filled.join(', ')})`);
+          } else if (day.checks['zhivu-food']) {
             tags.push(LABELS[key]);
           }
           return;
