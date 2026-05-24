@@ -665,12 +665,23 @@
               </div>
             </div>
           </div>
-          <div class="item item--zhivu" data-key="zhivu-home">
+          <div class="item item--zhivu item--home" data-key="zhivu-home">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-home">Уход за домом</button>
             </div>
-            <div class="item__mark">
-              <input type="checkbox" name="zhivu-home" id="zhivu-home" aria-label="Уход за домом">
+            <div class="item__mark food-meals" role="group" aria-label="Уход за домом">
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="0" aria-label="Дело дня"></button>
+                <span class="food-meal__label">Дело дня</span>
+              </div>
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="1" aria-label="Пол"></button>
+                <span class="food-meal__label">Пол</span>
+              </div>
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="2" aria-label="Стирка"></button>
+                <span class="food-meal__label">Стирка</span>
+              </div>
             </div>
           </div>
           <div class="item item--zhivu" data-key="zhivu-body">
@@ -858,6 +869,8 @@
     const WATER_DOTS = 6;
     const FOOD_MEALS = 3;
     const MEAL_LABELS = ['Завтрак', 'Обед', 'Ужин'];
+    const HOME_TASKS = 3;
+    const HOME_LABELS = ['Дело дня', 'Пол', 'Стирка'];
 
     function emptyWaterDots() {
       return Array(WATER_DOTS).fill(false);
@@ -865,6 +878,10 @@
 
     function emptyFoodMeals() {
       return Array(FOOD_MEALS).fill(false);
+    }
+
+    function emptyHomeDots() {
+      return Array(HOME_TASKS).fill(false);
     }
 
     function normalizeWaterDots(waterDots) {
@@ -879,6 +896,13 @@
         return emptyFoodMeals();
       }
       return foodMeals.map(Boolean);
+    }
+
+    function normalizeHomeDots(homeDots) {
+      if (!Array.isArray(homeDots) || homeDots.length !== HOME_TASKS) {
+        return emptyHomeDots();
+      }
+      return homeDots.map(Boolean);
     }
 
     function migrateWaterFromChecks(checks, waterDots) {
@@ -897,6 +921,27 @@
         delete checks['zhivu-food'];
       }
       return meals;
+    }
+
+    function migrateHomeFromChecks(checks, homeDots) {
+      const dots = normalizeHomeDots(homeDots);
+      if (checks['zhivu-home-day']) {
+        dots[0] = true;
+        delete checks['zhivu-home-day'];
+      }
+      if (checks['zhivu-home-floor']) {
+        dots[1] = true;
+        delete checks['zhivu-home-floor'];
+      }
+      if (checks['zhivu-home-laundry']) {
+        dots[2] = true;
+        delete checks['zhivu-home-laundry'];
+      }
+      if (checks['zhivu-home']) {
+        dots[0] = true;
+        delete checks['zhivu-home'];
+      }
+      return dots;
     }
 
     function todayISO() {
@@ -947,6 +992,7 @@
           checks: {},
           waterDots: emptyWaterDots(),
           foodMeals: emptyFoodMeals(),
+          homeDots: emptyHomeDots(),
           gratitude: '',
         };
       }
@@ -957,22 +1003,31 @@
           checks,
           waterDots: migrateWaterFromChecks(checks, raw.waterDots),
           foodMeals: migrateFoodFromChecks(checks, raw.foodMeals),
+          homeDots: migrateHomeFromChecks(checks, raw.homeDots),
           gratitude: raw.gratitude || '',
         };
       }
       const checks = {};
       ALL_KEYS.forEach((key) => {
-        if (key !== 'zhivu-water' && key !== 'zhivu-food' && raw[key]) checks[key] = true;
+        if (key !== 'zhivu-water' && key !== 'zhivu-food' && key !== 'zhivu-home' && raw[key]) {
+          checks[key] = true;
+        }
       });
       const waterDots = emptyWaterDots();
       if (raw['zhivu-water']) waterDots[0] = true;
       const foodMeals = emptyFoodMeals();
       if (raw['zhivu-food']) foodMeals[0] = true;
+      const homeDots = migrateHomeFromChecks(checks, emptyHomeDots());
+      if (raw['zhivu-home-day']) homeDots[0] = true;
+      if (raw['zhivu-home-floor']) homeDots[1] = true;
+      if (raw['zhivu-home-laundry']) homeDots[2] = true;
+      if (raw['zhivu-home']) homeDots[0] = true;
       return {
         date: today,
         checks,
         waterDots,
         foodMeals,
+        homeDots,
         gratitude: raw.gratitude || '',
       };
     }
@@ -983,13 +1038,14 @@
 
     function hasActivity(entry) {
       const checked = ALL_KEYS.some((key) => {
-        if (key === 'zhivu-water' || key === 'zhivu-food') return false;
+        if (key === 'zhivu-water' || key === 'zhivu-food' || key === 'zhivu-home') return false;
         return entry.checks[key];
       });
       const water = normalizeWaterDots(entry.waterDots).some(Boolean);
       const food = normalizeFoodMeals(entry.foodMeals).some(Boolean);
+      const home = normalizeHomeDots(entry.homeDots).some(Boolean);
       const gratitude = (entry.gratitude || '').trim();
-      return checked || water || food || gratitude;
+      return checked || water || food || home || gratitude;
     }
 
     function archiveDay(state, history) {
@@ -998,6 +1054,7 @@
         checks: { ...state.checks },
         waterDots: [...normalizeWaterDots(state.waterDots)],
         foodMeals: [...normalizeFoodMeals(state.foodMeals)],
+        homeDots: [...normalizeHomeDots(state.homeDots)],
         gratitude: state.gratitude || '',
       };
       if (!hasActivity(entry)) return history;
@@ -1017,6 +1074,7 @@
       state.checks = {};
       state.waterDots = emptyWaterDots();
       state.foodMeals = emptyFoodMeals();
+      state.homeDots = emptyHomeDots();
       state.gratitude = '';
       return state;
     }
@@ -1047,9 +1105,18 @@
     }
 
     function applyFoodUI() {
-      document.querySelectorAll('.meal-dot').forEach((btn) => {
+      document.querySelectorAll('.item--food .meal-dot').forEach((btn) => {
         const index = Number(btn.dataset.index);
         const filled = state.foodMeals[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applyHomeUI() {
+      document.querySelectorAll('.item--home .meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.homeDots[index];
         btn.classList.toggle('meal-dot--filled', filled);
         btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
       });
@@ -1062,6 +1129,7 @@
       });
       applyWaterUI();
       applyFoodUI();
+      applyHomeUI();
       document.getElementById('gratitude-text').value = state.gratitude || '';
     }
 
@@ -1170,13 +1238,23 @@
       });
     });
 
-    document.querySelectorAll('.meal-dot').forEach((btn) => {
+    document.querySelectorAll('.item--food .meal-dot').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const index = Number(btn.dataset.index);
         state.foodMeals[index] = !state.foodMeals[index];
         saveState(state);
         applyFoodUI();
+      });
+    });
+
+    document.querySelectorAll('.item--home .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.homeDots[index] = !state.homeDots[index];
+        saveState(state);
+        applyHomeUI();
       });
     });
 
@@ -1212,6 +1290,23 @@
           if (filled.length > 0) {
             tags.push(`Еда (${filled.join(', ')})`);
           } else if (day.checks['zhivu-food']) {
+            tags.push(LABELS[key]);
+          }
+          return;
+        }
+        if (key === 'zhivu-home') {
+          const dots = day.homeDots ? normalizeHomeDots(day.homeDots) : null;
+          const filled = dots
+            ? HOME_LABELS.filter((label, i) => dots[i])
+            : [];
+          if (filled.length > 0) {
+            tags.push(`Уход за домом (${filled.join(', ')})`);
+          } else if (
+            day.checks['zhivu-home']
+            || day.checks['zhivu-home-day']
+            || day.checks['zhivu-home-floor']
+            || day.checks['zhivu-home-laundry']
+          ) {
             tags.push(LABELS[key]);
           }
           return;
