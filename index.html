@@ -98,7 +98,8 @@
 
     .item {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
+      justify-content: space-between;
       gap: 0.75rem;
       cursor: pointer;
       padding: 0.5rem 0.6rem;
@@ -118,10 +119,48 @@
     .item input[type="checkbox"] {
       width: 1.25rem;
       height: 1.25rem;
-      margin-top: 0.15rem;
       flex-shrink: 0;
       accent-color: currentColor;
       cursor: pointer;
+    }
+
+    .item__mark {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .water-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .water-dot {
+      width: 1.125rem;
+      height: 1.125rem;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .water-dot:hover {
+      transform: scale(1.08);
+    }
+
+    .water-dot--filled {
+      background: currentColor;
+    }
+
+    .section--light .water-dot {
+      border-color: #F9F6F0;
+    }
+
+    .section--light .water-dot--filled {
+      background: #F9F6F0;
     }
 
     .section--light .item input[type="checkbox"] {
@@ -522,57 +561,80 @@
         <h2 class="section__title">ЖИВУ</h2>
         <div class="items items--zhivu">
           <div class="item item--zhivu" data-key="zhivu-air">
-            <input type="checkbox" name="zhivu-air" id="zhivu-air">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-air">Воздух</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="zhivu-air" id="zhivu-air" aria-label="Воздух">
+            </div>
           </div>
-          <div class="item item--zhivu" data-key="zhivu-water">
-            <input type="checkbox" name="zhivu-water" id="zhivu-water">
+          <div class="item item--zhivu item--water" data-key="zhivu-water">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-water">Вода</button>
             </div>
+            <div class="item__mark water-dots" role="group" aria-label="Вода">
+              <button type="button" class="water-dot" data-index="0" aria-label="Стакан 1"></button>
+              <button type="button" class="water-dot" data-index="1" aria-label="Стакан 2"></button>
+              <button type="button" class="water-dot" data-index="2" aria-label="Стакан 3"></button>
+              <button type="button" class="water-dot" data-index="3" aria-label="Стакан 4"></button>
+              <button type="button" class="water-dot" data-index="4" aria-label="Стакан 5"></button>
+              <button type="button" class="water-dot" data-index="5" aria-label="Стакан 6"></button>
+            </div>
           </div>
           <div class="item item--zhivu" data-key="zhivu-selfcare">
-            <input type="checkbox" name="zhivu-selfcare" id="zhivu-selfcare">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-selfcare">Уход за собой</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="zhivu-selfcare" id="zhivu-selfcare" aria-label="Уход за собой">
+            </div>
           </div>
           <div class="item item--zhivu" data-key="zhivu-sun">
-            <input type="checkbox" name="zhivu-sun" id="zhivu-sun">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-sun">Солнце / Свет</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="zhivu-sun" id="zhivu-sun" aria-label="Солнце / Свет">
+            </div>
           </div>
           <div class="item item--zhivu" data-key="zhivu-food">
-            <input type="checkbox" name="zhivu-food" id="zhivu-food">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-food">Еда</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="zhivu-food" id="zhivu-food" aria-label="Еда">
+            </div>
           </div>
           <div class="item item--zhivu" data-key="zhivu-home">
-            <input type="checkbox" name="zhivu-home" id="zhivu-home">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-home">Уход за домом</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="zhivu-home" id="zhivu-home" aria-label="Уход за домом">
+            </div>
           </div>
           <div class="item item--zhivu" data-key="zhivu-body">
-            <input type="checkbox" name="zhivu-body" id="zhivu-body">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-body">Физическая активность</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="zhivu-body" id="zhivu-body" aria-label="Физическая активность">
+            </div>
           </div>
           <div class="item item--zhivu" data-key="zhivu-silence">
-            <input type="checkbox" name="zhivu-silence" id="zhivu-silence">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-silence">Тишина / Пауза</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="zhivu-silence" id="zhivu-silence" aria-label="Тишина / Пауза">
+            </div>
           </div>
           <div class="item item--zhivu" data-key="zhivu-sleep">
-            <input type="checkbox" name="zhivu-sleep" id="zhivu-sleep">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-sleep">Сон</button>
+            </div>
+            <div class="item__mark">
+              <input type="checkbox" name="zhivu-sleep" id="zhivu-sleep" aria-label="Сон">
             </div>
           </div>
         </div>
@@ -582,33 +644,43 @@
         <h2 class="section__title">ЛЮБЛЮ</h2>
         <div class="items">
           <div class="item item--zhivu" data-key="lublu-me">
-            <input type="checkbox" name="lublu-me" id="lublu-me">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="lublu-me">Любовь к себе</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="lublu-me" id="lublu-me" aria-label="Любовь к себе">
+            </div>
           </div>
           <div class="item item--zhivu" data-key="lublu-him">
-            <input type="checkbox" name="lublu-him" id="lublu-him">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="lublu-him">Любовь к мужчине</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="lublu-him" id="lublu-him" aria-label="Любовь к мужчине">
+            </div>
           </div>
           <div class="item item--zhivu" data-key="lublu-kids">
-            <input type="checkbox" name="lublu-kids" id="lublu-kids">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="lublu-kids">Любовь к детям</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="lublu-kids" id="lublu-kids" aria-label="Любовь к детям">
+            </div>
           </div>
           <div class="item item--zhivu" data-key="lublu-mom">
-            <input type="checkbox" name="lublu-mom" id="lublu-mom">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="lublu-mom">Любовь к маме</button>
             </div>
+            <div class="item__mark">
+              <input type="checkbox" name="lublu-mom" id="lublu-mom" aria-label="Любовь к маме">
+            </div>
           </div>
           <div class="item item--zhivu" data-key="lublu-dad">
-            <input type="checkbox" name="lublu-dad" id="lublu-dad">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="lublu-dad">Любовь к папе</button>
+            </div>
+            <div class="item__mark">
+              <input type="checkbox" name="lublu-dad" id="lublu-dad" aria-label="Любовь к папе">
             </div>
           </div>
         </div>
@@ -618,9 +690,11 @@
         <h2 class="section__title">РАДУЮСЬ</h2>
         <div class="items">
           <label class="item" data-key="raduyus">
-            <input type="checkbox" name="raduyus">
             <span class="item__content">
               <span class="item__label">Радуюсь</span>
+            </span>
+            <span class="item__mark">
+              <input type="checkbox" name="raduyus">
             </span>
           </label>
         </div>
@@ -630,9 +704,11 @@
         <h2 class="section__title">ТВОРЮ</h2>
         <div class="items">
           <label class="item" data-key="tvoryu">
-            <input type="checkbox" name="tvoryu">
             <span class="item__content">
               <span class="item__label">Творю</span>
+            </span>
+            <span class="item__mark">
+              <input type="checkbox" name="tvoryu">
             </span>
           </label>
         </div>
@@ -642,9 +718,11 @@
         <h2 class="section__title">БЛАГОДАРЮ</h2>
         <div class="items">
           <label class="item" data-key="blagodaryu">
-            <input type="checkbox" name="blagodaryu">
             <span class="item__content">
               <span class="item__label">Благодарю</span>
+            </span>
+            <span class="item__mark">
+              <input type="checkbox" name="blagodaryu">
             </span>
           </label>
         </div>
@@ -708,6 +786,27 @@
     };
 
     const ALL_KEYS = Object.keys(LABELS);
+    const WATER_DOTS = 6;
+
+    function emptyWaterDots() {
+      return Array(WATER_DOTS).fill(false);
+    }
+
+    function normalizeWaterDots(waterDots) {
+      if (!Array.isArray(waterDots) || waterDots.length !== WATER_DOTS) {
+        return emptyWaterDots();
+      }
+      return waterDots.map(Boolean);
+    }
+
+    function migrateWaterFromChecks(checks, waterDots) {
+      const dots = normalizeWaterDots(waterDots);
+      if (checks['zhivu-water']) {
+        dots[0] = true;
+        delete checks['zhivu-water'];
+      }
+      return dots;
+    }
 
     function todayISO() {
       const d = new Date();
@@ -752,18 +851,27 @@
     function migrateState(raw) {
       const today = todayISO();
       if (!raw) {
-        return { date: today, checks: {}, gratitude: '' };
+        return { date: today, checks: {}, waterDots: emptyWaterDots(), gratitude: '' };
       }
       if (raw.date && typeof raw.checks === 'object') {
-        return raw;
+        const checks = { ...raw.checks };
+        return {
+          date: raw.date,
+          checks,
+          waterDots: migrateWaterFromChecks(checks, raw.waterDots),
+          gratitude: raw.gratitude || '',
+        };
       }
       const checks = {};
       ALL_KEYS.forEach((key) => {
-        if (raw[key]) checks[key] = true;
+        if (key !== 'zhivu-water' && raw[key]) checks[key] = true;
       });
+      const waterDots = emptyWaterDots();
+      if (raw['zhivu-water']) waterDots[0] = true;
       return {
         date: today,
         checks,
+        waterDots,
         gratitude: raw.gratitude || '',
       };
     }
@@ -773,15 +881,17 @@
     }
 
     function hasActivity(entry) {
-      const checked = ALL_KEYS.some((key) => entry.checks[key]);
+      const checked = ALL_KEYS.some((key) => key !== 'zhivu-water' && entry.checks[key]);
+      const water = normalizeWaterDots(entry.waterDots).some(Boolean);
       const gratitude = (entry.gratitude || '').trim();
-      return checked || gratitude;
+      return checked || water || gratitude;
     }
 
     function archiveDay(state, history) {
       const entry = {
         date: state.date,
         checks: { ...state.checks },
+        waterDots: [...normalizeWaterDots(state.waterDots)],
         gratitude: state.gratitude || '',
       };
       if (!hasActivity(entry)) return history;
@@ -799,6 +909,7 @@
     function resetForNewDay(state) {
       state.date = todayISO();
       state.checks = {};
+      state.waterDots = emptyWaterDots();
       state.gratitude = '';
       return state;
     }
@@ -819,11 +930,21 @@
 
     document.getElementById('date-today').textContent = formatDate(today);
 
+    function applyWaterUI() {
+      document.querySelectorAll('.water-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.waterDots[index];
+        btn.classList.toggle('water-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
     function applyUI() {
       document.querySelectorAll('.item input[type="checkbox"]').forEach((checkbox) => {
         const key = checkbox.closest('.item').dataset.key;
         checkbox.checked = Boolean(state.checks[key]);
       });
+      applyWaterUI();
       document.getElementById('gratitude-text').value = state.gratitude || '';
     }
 
@@ -922,6 +1043,16 @@
       });
     });
 
+    document.querySelectorAll('.water-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.waterDots[index] = !state.waterDots[index];
+        saveState(state);
+        applyWaterUI();
+      });
+    });
+
     const gratitudeText = document.getElementById('gratitude-text');
     let saveTextTimer;
 
@@ -933,6 +1064,24 @@
       }, 300);
     });
 
+    function historyTagsForDay(day) {
+      const tags = [];
+      Object.keys(LABELS).forEach((key) => {
+        if (key === 'zhivu-water') {
+          const dots = day.waterDots ? normalizeWaterDots(day.waterDots) : null;
+          const count = dots ? dots.filter(Boolean).length : 0;
+          if (count > 0) {
+            tags.push(`Вода (${count}/${WATER_DOTS})`);
+          } else if (day.checks['zhivu-water']) {
+            tags.push(LABELS[key]);
+          }
+          return;
+        }
+        if (day.checks[key]) tags.push(LABELS[key]);
+      });
+      return tags;
+    }
+
     function renderHistory() {
       const body = document.getElementById('history-body');
 
@@ -942,9 +1091,7 @@
       }
 
       body.innerHTML = `<div class="history-list">${history.map((day) => {
-        const checkedLabels = ALL_KEYS
-          .filter((key) => day.checks[key])
-          .map((key) => LABELS[key]);
+        const checkedLabels = historyTagsForDay(day);
 
         const checksHtml = checkedLabels.length
           ? `<div class="history-day__checks">${checkedLabels.map((l) => `<span class="history-tag">${l}</span>`).join('')}</div>`
