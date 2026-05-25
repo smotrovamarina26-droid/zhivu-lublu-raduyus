@@ -96,6 +96,13 @@
       gap: 0.75rem;
     }
 
+    .items-divider {
+      border: none;
+      border-top: 1px solid currentColor;
+      opacity: 0.18;
+      margin: 0.25rem 0;
+    }
+
     .item {
       display: flex;
       align-items: center;
@@ -130,10 +137,31 @@
       align-items: center;
     }
 
-    .water-dots {
+    .water-groups {
       display: flex;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    .water-group {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.2rem;
+    }
+
+    .water-group__dots {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .water-group__label {
+      font-size: 0.625rem;
+      font-weight: 500;
+      line-height: 1.1;
+      opacity: 0.88;
+      text-align: center;
+      white-space: nowrap;
     }
 
     .water-dot {
@@ -185,6 +213,15 @@
       white-space: nowrap;
     }
 
+    .food-meal__time {
+      font-size: 0.5rem;
+      font-weight: 400;
+      line-height: 1;
+      opacity: 0.6;
+      text-align: center;
+      white-space: nowrap;
+    }
+
     .meal-dot {
       width: 1.125rem;
       height: 1.125rem;
@@ -219,6 +256,19 @@
     .item__content {
       flex: 1;
       min-width: 0;
+    }
+
+    .item__sub {
+      margin-top: 0.3rem;
+    }
+
+    .item__sub .item {
+      padding: 0.3rem 0;
+      margin: 0;
+    }
+
+    .item--indent {
+      padding-left: 1rem;
     }
 
     .item__label {
@@ -609,41 +659,66 @@
       <section class="section section--light" style="background-color: #5A5B37;" data-section="zhivu">
         <h2 class="section__title">ЖИВУ</h2>
         <div class="items items--zhivu">
-          <div class="item item--zhivu" data-key="zhivu-air">
+          <div class="item item--zhivu item--air" data-key="zhivu-air">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-air">Воздух</button>
             </div>
-            <div class="item__mark">
-              <input type="checkbox" name="zhivu-air" id="zhivu-air" aria-label="Воздух">
+            <div class="item__mark food-meals" role="group" aria-label="Воздух">
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="0" aria-label="Утро"></button>
+                <span class="food-meal__label">Утро</span>
+              </div>
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="1" aria-label="День"></button>
+                <span class="food-meal__label">День</span>
+              </div>
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="2" aria-label="Вечер"></button>
+                <span class="food-meal__label">Вечер</span>
+              </div>
             </div>
           </div>
           <div class="item item--zhivu item--water" data-key="zhivu-water">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-water">Вода</button>
             </div>
-            <div class="item__mark water-dots" role="group" aria-label="Вода">
-              <button type="button" class="water-dot" data-index="0" aria-label="Стакан 1"></button>
-              <button type="button" class="water-dot" data-index="1" aria-label="Стакан 2"></button>
-              <button type="button" class="water-dot" data-index="2" aria-label="Стакан 3"></button>
-              <button type="button" class="water-dot" data-index="3" aria-label="Стакан 4"></button>
-              <button type="button" class="water-dot" data-index="4" aria-label="Стакан 5"></button>
-              <button type="button" class="water-dot" data-index="5" aria-label="Стакан 6"></button>
+            <div class="item__mark water-groups" role="group" aria-label="Вода">
+              <div class="water-group">
+                <div class="water-group__dots">
+                  <button type="button" class="water-dot" data-index="0" aria-label="Утро 1"></button>
+                  <button type="button" class="water-dot" data-index="1" aria-label="Утро 2"></button>
+                  <button type="button" class="water-dot" data-index="2" aria-label="Утро 3"></button>
+                </div>
+                <span class="water-group__label">Утро</span>
+              </div>
+              <div class="water-group">
+                <div class="water-group__dots">
+                  <button type="button" class="water-dot" data-index="3" aria-label="День 1"></button>
+                  <button type="button" class="water-dot" data-index="4" aria-label="День 2"></button>
+                </div>
+                <span class="water-group__label">День</span>
+              </div>
+              <div class="water-group">
+                <div class="water-group__dots">
+                  <button type="button" class="water-dot" data-index="5" aria-label="Вечер"></button>
+                </div>
+                <span class="water-group__label">Вечер</span>
+              </div>
             </div>
           </div>
-          <div class="item item--zhivu" data-key="zhivu-selfcare">
+          <div class="item item--zhivu item--sun" data-key="zhivu-sun">
             <div class="item__content">
-              <button type="button" class="item__label-btn" data-note-key="zhivu-selfcare">Уход за собой</button>
+              <button type="button" class="item__label-btn" data-note-key="zhivu-sun">Солнце и свет</button>
             </div>
-            <div class="item__mark">
-              <input type="checkbox" name="zhivu-selfcare" id="zhivu-selfcare" aria-label="Уход за собой">
-            </div>
-          </div>
-          <div class="item item--zhivu" data-key="zhivu-sun">
-            <div class="item__content">
-              <button type="button" class="item__label-btn" data-note-key="zhivu-sun">Солнце / Свет</button>
-            </div>
-            <div class="item__mark">
-              <input type="checkbox" name="zhivu-sun" id="zhivu-sun" aria-label="Солнце / Свет">
+            <div class="item__mark food-meals" role="group" aria-label="Солнце и свет">
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="0" aria-label="Утро"></button>
+                <span class="food-meal__label">Утро</span>
+              </div>
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="1" aria-label="День"></button>
+                <span class="food-meal__label">День</span>
+              </div>
             </div>
           </div>
           <div class="item item--zhivu item--food" data-key="zhivu-food">
@@ -665,6 +740,39 @@
               </div>
             </div>
           </div>
+          <div class="item item--zhivu item--body" data-key="zhivu-body">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="zhivu-body">Физическая активность</button>
+            </div>
+            <div class="item__mark food-meals" role="group" aria-label="Физическая активность">
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="0" aria-label="Утро"></button>
+                <span class="food-meal__label">Утро</span>
+              </div>
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="1" aria-label="День"></button>
+                <span class="food-meal__label">День</span>
+              </div>
+            </div>
+          </div>
+          <div class="item item--zhivu item--sleep" data-key="zhivu-sleep">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="zhivu-sleep">Сон</button>
+            </div>
+            <div class="item__mark food-meals" role="group" aria-label="Сон">
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="0" aria-label="Подготовка"></button>
+                <span class="food-meal__label">Подготовка</span>
+                <span class="food-meal__time">22:15</span>
+              </div>
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="1" aria-label="В кровати"></button>
+                <span class="food-meal__label">В кровати</span>
+                <span class="food-meal__time">22:45</span>
+              </div>
+            </div>
+          </div>
+          <hr class="items-divider">
           <div class="item item--zhivu item--home" data-key="zhivu-home">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="zhivu-home">Уход за домом</button>
@@ -684,66 +792,62 @@
               </div>
             </div>
           </div>
-          <div class="item item--zhivu" data-key="zhivu-body">
-            <div class="item__content">
-              <button type="button" class="item__label-btn" data-note-key="zhivu-body">Физическая активность</button>
-            </div>
-            <div class="item__mark">
-              <input type="checkbox" name="zhivu-body" id="zhivu-body" aria-label="Физическая активность">
-            </div>
-          </div>
-          <div class="item item--zhivu" data-key="zhivu-sleep">
-            <div class="item__content">
-              <button type="button" class="item__label-btn" data-note-key="zhivu-sleep">Сон</button>
-            </div>
-            <div class="item__mark">
-              <input type="checkbox" name="zhivu-sleep" id="zhivu-sleep" aria-label="Сон">
-            </div>
-          </div>
         </div>
       </section>
 
       <section class="section section--light" style="background-color: #AE4707;" data-section="lublu">
         <h2 class="section__title">ЛЮБЛЮ</h2>
         <div class="items">
-          <div class="item item--zhivu" data-key="lublu-me">
+          <div class="item item--zhivu" data-key="lublu-selfcare-label">
             <div class="item__content">
-              <button type="button" class="item__label-btn" data-note-key="lublu-me">Любовь к себе</button>
-            </div>
-            <div class="item__mark">
-              <input type="checkbox" name="lublu-me" id="lublu-me" aria-label="Любовь к себе">
+              <button type="button" class="item__label-btn" data-note-key="lublu-selfcare">Любовь к себе</button>
             </div>
           </div>
-          <div class="item item--zhivu" data-key="lublu-him">
+          <div class="item item--zhivu item--selfcare item--indent" data-key="lublu-selfcare">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="lublu-selfcare">Уход за собой</button>
+            </div>
+            <div class="item__mark food-meals" role="group" aria-label="Уход за собой">
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="0" aria-label="Утро"></button>
+                <span class="food-meal__label">Утро</span>
+              </div>
+              <div class="food-meal">
+                <button type="button" class="meal-dot" data-index="1" aria-label="Вечер"></button>
+                <span class="food-meal__label">Вечер</span>
+              </div>
+            </div>
+          </div>
+          <div class="item item--zhivu item--him" data-key="lublu-him">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="lublu-him">Любовь к мужчине</button>
             </div>
             <div class="item__mark">
-              <input type="checkbox" name="lublu-him" id="lublu-him" aria-label="Любовь к мужчине">
+              <button type="button" class="meal-dot" data-index="0" aria-label="Любовь к мужчине"></button>
             </div>
           </div>
-          <div class="item item--zhivu" data-key="lublu-kids">
+          <div class="item item--zhivu item--kids" data-key="lublu-kids">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="lublu-kids">Любовь к детям</button>
             </div>
             <div class="item__mark">
-              <input type="checkbox" name="lublu-kids" id="lublu-kids" aria-label="Любовь к детям">
+              <button type="button" class="meal-dot" data-index="0" aria-label="Любовь к детям"></button>
             </div>
           </div>
-          <div class="item item--zhivu" data-key="lublu-mom">
+          <div class="item item--zhivu item--mom" data-key="lublu-mom">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="lublu-mom">Любовь к маме</button>
             </div>
             <div class="item__mark">
-              <input type="checkbox" name="lublu-mom" id="lublu-mom" aria-label="Любовь к маме">
+              <button type="button" class="meal-dot" data-index="0" aria-label="Любовь к маме"></button>
             </div>
           </div>
-          <div class="item item--zhivu" data-key="lublu-dad">
+          <div class="item item--zhivu item--dad" data-key="lublu-dad">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="lublu-dad">Любовь к папе</button>
             </div>
             <div class="item__mark">
-              <input type="checkbox" name="lublu-dad" id="lublu-dad" aria-label="Любовь к папе">
+              <button type="button" class="meal-dot" data-index="0" aria-label="Любовь к папе"></button>
             </div>
           </div>
         </div>
@@ -752,34 +856,34 @@
       <section class="section section--dark" style="background-color: #89C0DF;" data-section="raduyus">
         <h2 class="section__title">РАДУЮСЬ</h2>
         <div class="items">
-          <label class="item" data-key="raduyus">
-            <span class="item__content">
-              <span class="item__label">Радуюсь</span>
-            </span>
-            <span class="item__mark">
-              <input type="checkbox" name="raduyus">
-            </span>
-          </label>
+          <div class="item item--zhivu item--raduyus" data-key="raduyus">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="raduyus">Радуюсь</button>
+            </div>
+            <div class="item__mark">
+              <button type="button" class="meal-dot" data-index="0" aria-label="Радуюсь"></button>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="section section--light" style="background-color: #1D4A5A;" data-section="tvoryu">
         <h2 class="section__title">ТВОРЮ</h2>
         <div class="items">
-          <div class="item item--zhivu" data-key="tvoryu-creative">
+          <div class="item item--zhivu item--tvoryu-creative" data-key="tvoryu-creative">
             <div class="item__content">
-              <button type="button" class="item__label-btn" data-note-key="tvoryu-creative">Творчество / Вдохновение</button>
+              <button type="button" class="item__label-btn" data-note-key="tvoryu-creative">Творчество и вдохновение</button>
             </div>
             <div class="item__mark">
-              <input type="checkbox" name="tvoryu-creative" id="tvoryu-creative" aria-label="Творчество / Вдохновение">
+              <button type="button" class="meal-dot" data-index="0" aria-label="Творчество и вдохновение"></button>
             </div>
           </div>
-          <div class="item item--zhivu" data-key="tvoryu-work">
+          <div class="item item--zhivu item--tvoryu-work" data-key="tvoryu-work">
             <div class="item__content">
               <button type="button" class="item__label-btn" data-note-key="tvoryu-work">Рабочие задачи</button>
             </div>
             <div class="item__mark">
-              <input type="checkbox" name="tvoryu-work" id="tvoryu-work" aria-label="Рабочие задачи">
+              <button type="button" class="meal-dot" data-index="0" aria-label="Рабочие задачи"></button>
             </div>
           </div>
         </div>
@@ -788,14 +892,14 @@
       <section class="section section--dark" style="background-color: #F2D184;" data-section="blagodaryu">
         <h2 class="section__title">БЛАГОДАРЮ</h2>
         <div class="items">
-          <label class="item" data-key="blagodaryu">
-            <span class="item__content">
-              <span class="item__label">Благодарю</span>
-            </span>
-            <span class="item__mark">
-              <input type="checkbox" name="blagodaryu">
-            </span>
-          </label>
+          <div class="item item--zhivu item--blagodaryu" data-key="blagodaryu">
+            <div class="item__content">
+              <button type="button" class="item__label-btn" data-note-key="blagodaryu">Благодарю</button>
+            </div>
+            <div class="item__mark">
+              <button type="button" class="meal-dot" data-index="0" aria-label="Благодарю"></button>
+            </div>
+          </div>
         </div>
         <div class="gratitude-field">
           <label for="gratitude-text">Записать благодарности дня</label>
@@ -839,19 +943,18 @@
     const LABELS = {
       'zhivu-air': 'Воздух',
       'zhivu-water': 'Вода',
-      'zhivu-selfcare': 'Уход за собой',
-      'zhivu-sun': 'Солнце / Свет',
+      'zhivu-sun': 'Солнце и свет',
       'zhivu-food': 'Еда',
       'zhivu-home': 'Уход за домом',
       'zhivu-body': 'Физическая активность',
       'zhivu-sleep': 'Сон',
-      'lublu-me': 'Любовь к себе',
+      'lublu-selfcare': 'Уход за собой',
       'lublu-him': 'Любовь к мужчине',
       'lublu-kids': 'Любовь к детям',
       'lublu-mom': 'Любовь к маме',
       'lublu-dad': 'Любовь к папе',
       raduyus: 'Радуюсь',
-      'tvoryu-creative': 'Творчество / Вдохновение',
+      'tvoryu-creative': 'Творчество и вдохновение',
       'tvoryu-work': 'Рабочие задачи',
       blagodaryu: 'Благодарю',
     };
@@ -860,8 +963,30 @@
     const WATER_DOTS = 6;
     const FOOD_MEALS = 3;
     const MEAL_LABELS = ['Завтрак', 'Обед', 'Ужин'];
+    const AIR_DOTS = 3;
+    const AIR_LABELS = ['Утро', 'День', 'Вечер'];
+    const SUN_DOTS = 2;
+    const SUN_LABELS = ['Утро', 'День'];
+    const BODY_DOTS = 2;
+    const BODY_LABELS = ['Утро', 'День'];
+    const SLEEP_DOTS = 2;
+    const SLEEP_LABELS = ['Подготовка', 'В кровати'];
+    const HIM_DOTS = 1;
+    const KIDS_DOTS = 1;
+    const MOM_DOTS = 1;
+    const DAD_DOTS = 1;
+    const RADUYUS_DOTS = 1;
+    const TVORYU_CREATIVE_DOTS = 1;
+    const TVORYU_WORK_DOTS = 1;
+    const BLAGODARYU_DOTS = 1;
+    const SELFCARE_DOTS = 2;
+    const SELFCARE_LABELS = ['Утро', 'Вечер'];
     const HOME_TASKS = 3;
     const HOME_LABELS = ['Дело дня', 'Пол', 'Стирка'];
+
+    function emptyAirDots() {
+      return Array(AIR_DOTS).fill(false);
+    }
 
     function emptyWaterDots() {
       return Array(WATER_DOTS).fill(false);
@@ -871,8 +996,52 @@
       return Array(FOOD_MEALS).fill(false);
     }
 
+    function emptySunDots() {
+      return Array(SUN_DOTS).fill(false);
+    }
+
+    function emptyBodyDots() {
+      return Array(BODY_DOTS).fill(false);
+    }
+
+    function emptySleepDots() {
+      return Array(SLEEP_DOTS).fill(false);
+    }
+
+    function emptyRaduyusDots() { return [false]; }
+    function emptyTvoryuCreativeDots() { return [false]; }
+    function emptyTvoryuWorkDots() { return [false]; }
+    function emptyBlagodaryuDots() { return [false]; }
+
+    function emptyHimDots() {
+      return Array(HIM_DOTS).fill(false);
+    }
+
+    function emptyKidsDots() {
+      return Array(KIDS_DOTS).fill(false);
+    }
+
+    function emptyMomDots() {
+      return Array(MOM_DOTS).fill(false);
+    }
+
+    function emptyDadDots() {
+      return Array(DAD_DOTS).fill(false);
+    }
+
+    function emptySelfcareDots() {
+      return Array(SELFCARE_DOTS).fill(false);
+    }
+
     function emptyHomeDots() {
       return Array(HOME_TASKS).fill(false);
+    }
+
+    function normalizeAirDots(airDots) {
+      if (!Array.isArray(airDots) || airDots.length !== AIR_DOTS) {
+        return emptyAirDots();
+      }
+      return airDots.map(Boolean);
     }
 
     function normalizeWaterDots(waterDots) {
@@ -889,11 +1058,65 @@
       return foodMeals.map(Boolean);
     }
 
+    function normalizeSunDots(sunDots) {
+      if (!Array.isArray(sunDots) || sunDots.length !== SUN_DOTS) {
+        return emptySunDots();
+      }
+      return sunDots.map(Boolean);
+    }
+
+    function normalizeBodyDots(bodyDots) {
+      if (!Array.isArray(bodyDots) || bodyDots.length !== BODY_DOTS) {
+        return emptyBodyDots();
+      }
+      return bodyDots.map(Boolean);
+    }
+
+    function normalizeSleepDots(sleepDots) {
+      if (!Array.isArray(sleepDots) || sleepDots.length !== SLEEP_DOTS) {
+        return emptySleepDots();
+      }
+      return sleepDots.map(Boolean);
+    }
+
+    function n1(d, empty) { return Array.isArray(d) && d.length === 1 ? d.map(Boolean) : empty(); }
+    function normalizeRaduyusDots(d) { return n1(d, emptyRaduyusDots); }
+    function normalizeTvoryuCreativeDots(d) { return n1(d, emptyTvoryuCreativeDots); }
+    function normalizeTvoryuWorkDots(d) { return n1(d, emptyTvoryuWorkDots); }
+    function normalizeBlagodaryuDots(d) { return n1(d, emptyBlagodaryuDots); }
+
+    function normalizeHimDots(himDots) {
+      if (!Array.isArray(himDots) || himDots.length !== HIM_DOTS) {
+        return emptyHimDots();
+      }
+      return himDots.map(Boolean);
+    }
+
+    function normalizeKidsDots(d) { return Array.isArray(d) && d.length === KIDS_DOTS ? d.map(Boolean) : emptyKidsDots(); }
+    function normalizeMomDots(d) { return Array.isArray(d) && d.length === MOM_DOTS ? d.map(Boolean) : emptyMomDots(); }
+    function normalizeDadDots(d) { return Array.isArray(d) && d.length === DAD_DOTS ? d.map(Boolean) : emptyDadDots(); }
+
+    function normalizeSelfcareDots(selfcareDots) {
+      if (!Array.isArray(selfcareDots) || selfcareDots.length !== SELFCARE_DOTS) {
+        return emptySelfcareDots();
+      }
+      return selfcareDots.map(Boolean);
+    }
+
     function normalizeHomeDots(homeDots) {
       if (!Array.isArray(homeDots) || homeDots.length !== HOME_TASKS) {
         return emptyHomeDots();
       }
       return homeDots.map(Boolean);
+    }
+
+    function migrateAirFromChecks(checks, airDots) {
+      const dots = normalizeAirDots(airDots);
+      if (checks['zhivu-air']) {
+        dots[0] = true;
+        delete checks['zhivu-air'];
+      }
+      return dots;
     }
 
     function migrateWaterFromChecks(checks, waterDots) {
@@ -912,6 +1135,60 @@
         delete checks['zhivu-food'];
       }
       return meals;
+    }
+
+    function migrateSunFromChecks(checks, sunDots) {
+      const dots = normalizeSunDots(sunDots);
+      if (checks['zhivu-sun']) {
+        dots[0] = true;
+        delete checks['zhivu-sun'];
+      }
+      return dots;
+    }
+
+    function migrateSleepFromChecks(checks, sleepDots) {
+      const dots = normalizeSleepDots(sleepDots);
+      if (checks['zhivu-sleep']) {
+        dots[0] = true;
+        delete checks['zhivu-sleep'];
+      }
+      return dots;
+    }
+
+    function migrateRaduyusFromChecks(checks, d) { const dots = normalizeRaduyusDots(d); if (checks['raduyus']) { dots[0] = true; delete checks['raduyus']; } return dots; }
+    function migrateTvoryuCreativeFromChecks(checks, d) { const dots = normalizeTvoryuCreativeDots(d); if (checks['tvoryu-creative']) { dots[0] = true; delete checks['tvoryu-creative']; } return dots; }
+    function migrateTvoryuWorkFromChecks(checks, d) { const dots = normalizeTvoryuWorkDots(d); if (checks['tvoryu-work']) { dots[0] = true; delete checks['tvoryu-work']; } return dots; }
+    function migrateBlagodaryuFromChecks(checks, d) { const dots = normalizeBlagodaryuDots(d); if (checks['blagodaryu']) { dots[0] = true; delete checks['blagodaryu']; } return dots; }
+
+    function migrateHimFromChecks(checks, himDots) {
+      const dots = normalizeHimDots(himDots);
+      if (checks['lublu-him']) {
+        dots[0] = true;
+        delete checks['lublu-him'];
+      }
+      return dots;
+    }
+
+    function migrateKidsFromChecks(checks, d) { const dots = normalizeKidsDots(d); if (checks['lublu-kids']) { dots[0] = true; delete checks['lublu-kids']; } return dots; }
+    function migrateMomFromChecks(checks, d) { const dots = normalizeMomDots(d); if (checks['lublu-mom']) { dots[0] = true; delete checks['lublu-mom']; } return dots; }
+    function migrateDadFromChecks(checks, d) { const dots = normalizeDadDots(d); if (checks['lublu-dad']) { dots[0] = true; delete checks['lublu-dad']; } return dots; }
+
+    function migrateSelfcareFromChecks(checks, selfcareDots) {
+      const dots = normalizeSelfcareDots(selfcareDots);
+      if (checks['lublu-selfcare']) {
+        dots[0] = true;
+        delete checks['lublu-selfcare'];
+      }
+      return dots;
+    }
+
+    function migrateBodyFromChecks(checks, bodyDots) {
+      const dots = normalizeBodyDots(bodyDots);
+      if (checks['zhivu-body']) {
+        dots[0] = true;
+        delete checks['zhivu-body'];
+      }
+      return dots;
     }
 
     function migrateHomeFromChecks(checks, homeDots) {
@@ -981,9 +1258,22 @@
         return {
           date: today,
           checks: {},
+          airDots: emptyAirDots(),
           waterDots: emptyWaterDots(),
+          sunDots: emptySunDots(),
           foodMeals: emptyFoodMeals(),
+          bodyDots: emptyBodyDots(),
           homeDots: emptyHomeDots(),
+          sleepDots: emptySleepDots(),
+          himDots: emptyHimDots(),
+          kidsDots: emptyKidsDots(),
+          momDots: emptyMomDots(),
+          dadDots: emptyDadDots(),
+          selfcareDots: emptySelfcareDots(),
+          raduyusDots: emptyRaduyusDots(),
+          tvoryuCreativeDots: emptyTvoryuCreativeDots(),
+          tvoryuWorkDots: emptyTvoryuWorkDots(),
+          blagodaryuDots: emptyBlagodaryuDots(),
           gratitude: '',
         };
       }
@@ -992,22 +1282,41 @@
         return {
           date: raw.date,
           checks,
+          airDots: migrateAirFromChecks(checks, raw.airDots),
           waterDots: migrateWaterFromChecks(checks, raw.waterDots),
+          sunDots: migrateSunFromChecks(checks, raw.sunDots),
           foodMeals: migrateFoodFromChecks(checks, raw.foodMeals),
+          bodyDots: migrateBodyFromChecks(checks, raw.bodyDots),
           homeDots: migrateHomeFromChecks(checks, raw.homeDots),
+          sleepDots: migrateSleepFromChecks(checks, raw.sleepDots),
+          himDots: migrateHimFromChecks(checks, raw.himDots),
+          kidsDots: migrateKidsFromChecks(checks, raw.kidsDots),
+          momDots: migrateMomFromChecks(checks, raw.momDots),
+          dadDots: migrateDadFromChecks(checks, raw.dadDots),
+          selfcareDots: migrateSelfcareFromChecks(checks, raw.selfcareDots),
+          raduyusDots: migrateRaduyusFromChecks(checks, raw.raduyusDots),
+          tvoryuCreativeDots: migrateTvoryuCreativeFromChecks(checks, raw.tvoryuCreativeDots),
+          tvoryuWorkDots: migrateTvoryuWorkFromChecks(checks, raw.tvoryuWorkDots),
+          blagodaryuDots: migrateBlagodaryuFromChecks(checks, raw.blagodaryuDots),
           gratitude: raw.gratitude || '',
         };
       }
       const checks = {};
       ALL_KEYS.forEach((key) => {
-        if (key !== 'zhivu-water' && key !== 'zhivu-food' && key !== 'zhivu-home' && raw[key]) {
+        if (key !== 'zhivu-air' && key !== 'zhivu-water' && key !== 'zhivu-sun' && key !== 'zhivu-food' && key !== 'zhivu-body' && key !== 'zhivu-home' && key !== 'zhivu-sleep' && key !== 'lublu-him' && key !== 'lublu-kids' && key !== 'lublu-mom' && key !== 'lublu-dad' && key !== 'lublu-selfcare' && key !== 'raduyus' && key !== 'tvoryu-creative' && key !== 'tvoryu-work' && key !== 'blagodaryu' && raw[key]) {
           checks[key] = true;
         }
       });
+      const airDots = emptyAirDots();
+      if (raw['zhivu-air']) airDots[0] = true;
       const waterDots = emptyWaterDots();
       if (raw['zhivu-water']) waterDots[0] = true;
+      const sunDots = emptySunDots();
+      if (raw['zhivu-sun']) sunDots[0] = true;
       const foodMeals = emptyFoodMeals();
       if (raw['zhivu-food']) foodMeals[0] = true;
+      const bodyDots = emptyBodyDots();
+      if (raw['zhivu-body']) bodyDots[0] = true;
       const homeDots = migrateHomeFromChecks(checks, emptyHomeDots());
       if (raw['zhivu-home-day']) homeDots[0] = true;
       if (raw['zhivu-home-floor']) homeDots[1] = true;
@@ -1016,9 +1325,22 @@
       return {
         date: today,
         checks,
+        airDots,
         waterDots,
+        sunDots,
         foodMeals,
+        bodyDots,
         homeDots,
+        sleepDots: emptySleepDots(),
+        himDots: emptyHimDots(),
+        kidsDots: emptyKidsDots(),
+        momDots: emptyMomDots(),
+        dadDots: emptyDadDots(),
+        selfcareDots: emptySelfcareDots(),
+        raduyusDots: emptyRaduyusDots(),
+        tvoryuCreativeDots: emptyTvoryuCreativeDots(),
+        tvoryuWorkDots: emptyTvoryuWorkDots(),
+        blagodaryuDots: emptyBlagodaryuDots(),
         gratitude: raw.gratitude || '',
       };
     }
@@ -1029,23 +1351,49 @@
 
     function hasActivity(entry) {
       const checked = ALL_KEYS.some((key) => {
-        if (key === 'zhivu-water' || key === 'zhivu-food' || key === 'zhivu-home') return false;
+        if (key === 'zhivu-air' || key === 'zhivu-water' || key === 'zhivu-sun' || key === 'zhivu-food' || key === 'zhivu-body' || key === 'zhivu-home' || key === 'zhivu-sleep' || key === 'lublu-him' || key === 'lublu-kids' || key === 'lublu-mom' || key === 'lublu-dad' || key === 'lublu-selfcare' || key === 'raduyus' || key === 'tvoryu-creative' || key === 'tvoryu-work' || key === 'blagodaryu') return false;
         return entry.checks[key];
       });
+      const air = normalizeAirDots(entry.airDots).some(Boolean);
       const water = normalizeWaterDots(entry.waterDots).some(Boolean);
+      const sun = normalizeSunDots(entry.sunDots).some(Boolean);
       const food = normalizeFoodMeals(entry.foodMeals).some(Boolean);
+      const body = normalizeBodyDots(entry.bodyDots).some(Boolean);
       const home = normalizeHomeDots(entry.homeDots).some(Boolean);
+      const sleep = normalizeSleepDots(entry.sleepDots).some(Boolean);
+      const him = normalizeHimDots(entry.himDots).some(Boolean);
+      const kids = normalizeKidsDots(entry.kidsDots).some(Boolean);
+      const mom = normalizeMomDots(entry.momDots).some(Boolean);
+      const dad = normalizeDadDots(entry.dadDots).some(Boolean);
+      const selfcare = normalizeSelfcareDots(entry.selfcareDots).some(Boolean);
+      const raduyus = normalizeRaduyusDots(entry.raduyusDots).some(Boolean);
+      const tvCreative = normalizeTvoryuCreativeDots(entry.tvoryuCreativeDots).some(Boolean);
+      const tvWork = normalizeTvoryuWorkDots(entry.tvoryuWorkDots).some(Boolean);
+      const blag = normalizeBlagodaryuDots(entry.blagodaryuDots).some(Boolean);
       const gratitude = (entry.gratitude || '').trim();
-      return checked || water || food || home || gratitude;
+      return checked || air || water || sun || food || body || home || sleep || him || kids || mom || dad || selfcare || raduyus || tvCreative || tvWork || blag || gratitude;
     }
 
     function archiveDay(state, history) {
       const entry = {
         date: state.date,
         checks: { ...state.checks },
+        airDots: [...normalizeAirDots(state.airDots)],
         waterDots: [...normalizeWaterDots(state.waterDots)],
+        sunDots: [...normalizeSunDots(state.sunDots)],
         foodMeals: [...normalizeFoodMeals(state.foodMeals)],
+        bodyDots: [...normalizeBodyDots(state.bodyDots)],
         homeDots: [...normalizeHomeDots(state.homeDots)],
+        sleepDots: [...normalizeSleepDots(state.sleepDots)],
+        himDots: [...normalizeHimDots(state.himDots)],
+        kidsDots: [...normalizeKidsDots(state.kidsDots)],
+        momDots: [...normalizeMomDots(state.momDots)],
+        dadDots: [...normalizeDadDots(state.dadDots)],
+        selfcareDots: [...normalizeSelfcareDots(state.selfcareDots)],
+        raduyusDots: [...normalizeRaduyusDots(state.raduyusDots)],
+        tvoryuCreativeDots: [...normalizeTvoryuCreativeDots(state.tvoryuCreativeDots)],
+        tvoryuWorkDots: [...normalizeTvoryuWorkDots(state.tvoryuWorkDots)],
+        blagodaryuDots: [...normalizeBlagodaryuDots(state.blagodaryuDots)],
         gratitude: state.gratitude || '',
       };
       if (!hasActivity(entry)) return history;
@@ -1063,9 +1411,22 @@
     function resetForNewDay(state) {
       state.date = todayISO();
       state.checks = {};
+      state.airDots = emptyAirDots();
       state.waterDots = emptyWaterDots();
+      state.sunDots = emptySunDots();
       state.foodMeals = emptyFoodMeals();
+      state.bodyDots = emptyBodyDots();
       state.homeDots = emptyHomeDots();
+      state.sleepDots = emptySleepDots();
+      state.himDots = emptyHimDots();
+      state.kidsDots = emptyKidsDots();
+      state.momDots = emptyMomDots();
+      state.dadDots = emptyDadDots();
+      state.selfcareDots = emptySelfcareDots();
+      state.raduyusDots = emptyRaduyusDots();
+      state.tvoryuCreativeDots = emptyTvoryuCreativeDots();
+      state.tvoryuWorkDots = emptyTvoryuWorkDots();
+      state.blagodaryuDots = emptyBlagodaryuDots();
       state.gratitude = '';
       return state;
     }
@@ -1086,6 +1447,15 @@
 
     document.getElementById('date-today').textContent = formatDate(today);
 
+    function applyAirUI() {
+      document.querySelectorAll('.item--air .meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.airDots[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
     function applyWaterUI() {
       document.querySelectorAll('.water-dot').forEach((btn) => {
         const index = Number(btn.dataset.index);
@@ -1095,10 +1465,114 @@
       });
     }
 
+    function applySunUI() {
+      document.querySelectorAll('.item--sun .meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.sunDots[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
     function applyFoodUI() {
       document.querySelectorAll('.item--food .meal-dot').forEach((btn) => {
         const index = Number(btn.dataset.index);
         const filled = state.foodMeals[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applyBodyUI() {
+      document.querySelectorAll('.item--body .meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.bodyDots[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applySleepUI() {
+      document.querySelectorAll('.item--sleep .meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.sleepDots[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applyHimUI() {
+      document.querySelectorAll('.item--him .meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.himDots[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applyKidsUI() {
+      document.querySelectorAll('.item--kids .meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.kidsDots[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applyMomUI() {
+      document.querySelectorAll('.item--mom .meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.momDots[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applyDadUI() {
+      document.querySelectorAll('.item--dad .meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.dadDots[index];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applyRaduyusUI() {
+      document.querySelectorAll('.item--raduyus .meal-dot').forEach((btn) => {
+        const filled = state.raduyusDots[Number(btn.dataset.index)];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applyTvoryuCreativeUI() {
+      document.querySelectorAll('.item--tvoryu-creative .meal-dot').forEach((btn) => {
+        const filled = state.tvoryuCreativeDots[Number(btn.dataset.index)];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applyTvoryuWorkUI() {
+      document.querySelectorAll('.item--tvoryu-work .meal-dot').forEach((btn) => {
+        const filled = state.tvoryuWorkDots[Number(btn.dataset.index)];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applyBlagodaryuUI() {
+      document.querySelectorAll('.item--blagodaryu .meal-dot').forEach((btn) => {
+        const filled = state.blagodaryuDots[Number(btn.dataset.index)];
+        btn.classList.toggle('meal-dot--filled', filled);
+        btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
+      });
+    }
+
+    function applySelfcareUI() {
+      document.querySelectorAll('.item--selfcare .meal-dot').forEach((btn) => {
+        const index = Number(btn.dataset.index);
+        const filled = state.selfcareDots[index];
         btn.classList.toggle('meal-dot--filled', filled);
         btn.setAttribute('aria-pressed', filled ? 'true' : 'false');
       });
@@ -1118,9 +1592,22 @@
         const key = checkbox.closest('.item').dataset.key;
         checkbox.checked = Boolean(state.checks[key]);
       });
+      applyAirUI();
       applyWaterUI();
+      applySunUI();
       applyFoodUI();
+      applyBodyUI();
       applyHomeUI();
+      applySleepUI();
+      applyHimUI();
+      applyKidsUI();
+      applyMomUI();
+      applyDadUI();
+      applySelfcareUI();
+      applyRaduyusUI();
+      applyTvoryuCreativeUI();
+      applyTvoryuWorkUI();
+      applyBlagodaryuUI();
       document.getElementById('gratitude-text').value = state.gratitude || '';
     }
 
@@ -1219,6 +1706,16 @@
       });
     });
 
+    document.querySelectorAll('.item--air .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.airDots[index] = !state.airDots[index];
+        saveState(state);
+        applyAirUI();
+      });
+    });
+
     document.querySelectorAll('.water-dot').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -1226,6 +1723,16 @@
         state.waterDots[index] = !state.waterDots[index];
         saveState(state);
         applyWaterUI();
+      });
+    });
+
+    document.querySelectorAll('.item--sun .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.sunDots[index] = !state.sunDots[index];
+        saveState(state);
+        applySunUI();
       });
     });
 
@@ -1239,6 +1746,16 @@
       });
     });
 
+    document.querySelectorAll('.item--body .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.bodyDots[index] = !state.bodyDots[index];
+        saveState(state);
+        applyBodyUI();
+      });
+    });
+
     document.querySelectorAll('.item--home .meal-dot').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -1247,6 +1764,82 @@
         saveState(state);
         applyHomeUI();
       });
+    });
+
+    document.querySelectorAll('.item--sleep .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.sleepDots[index] = !state.sleepDots[index];
+        saveState(state);
+        applySleepUI();
+      });
+    });
+
+    document.querySelectorAll('.item--him .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.himDots[index] = !state.himDots[index];
+        saveState(state);
+        applyHimUI();
+      });
+    });
+
+    document.querySelectorAll('.item--kids .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.kidsDots[index] = !state.kidsDots[index];
+        saveState(state);
+        applyKidsUI();
+      });
+    });
+
+    document.querySelectorAll('.item--mom .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.momDots[index] = !state.momDots[index];
+        saveState(state);
+        applyMomUI();
+      });
+    });
+
+    document.querySelectorAll('.item--dad .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.dadDots[index] = !state.dadDots[index];
+        saveState(state);
+        applyDadUI();
+      });
+    });
+
+    document.querySelectorAll('.item--selfcare .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = Number(btn.dataset.index);
+        state.selfcareDots[index] = !state.selfcareDots[index];
+        saveState(state);
+        applySelfcareUI();
+      });
+    });
+
+    document.querySelectorAll('.item--raduyus .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => { e.stopPropagation(); state.raduyusDots[Number(btn.dataset.index)] = !state.raduyusDots[Number(btn.dataset.index)]; saveState(state); applyRaduyusUI(); });
+    });
+
+    document.querySelectorAll('.item--tvoryu-creative .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => { e.stopPropagation(); state.tvoryuCreativeDots[Number(btn.dataset.index)] = !state.tvoryuCreativeDots[Number(btn.dataset.index)]; saveState(state); applyTvoryuCreativeUI(); });
+    });
+
+    document.querySelectorAll('.item--tvoryu-work .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => { e.stopPropagation(); state.tvoryuWorkDots[Number(btn.dataset.index)] = !state.tvoryuWorkDots[Number(btn.dataset.index)]; saveState(state); applyTvoryuWorkUI(); });
+    });
+
+    document.querySelectorAll('.item--blagodaryu .meal-dot').forEach((btn) => {
+      btn.addEventListener('click', (e) => { e.stopPropagation(); state.blagodaryuDots[Number(btn.dataset.index)] = !state.blagodaryuDots[Number(btn.dataset.index)]; saveState(state); applyBlagodaryuUI(); });
     });
 
     const gratitudeText = document.getElementById('gratitude-text');
@@ -1263,12 +1856,36 @@
     function historyTagsForDay(day) {
       const tags = [];
       Object.keys(LABELS).forEach((key) => {
+        if (key === 'zhivu-air') {
+          const dots = day.airDots ? normalizeAirDots(day.airDots) : null;
+          const filled = dots
+            ? AIR_LABELS.filter((label, i) => dots[i])
+            : [];
+          if (filled.length > 0) {
+            tags.push(`Воздух (${filled.join(', ')})`);
+          } else if (day.checks['zhivu-air']) {
+            tags.push(LABELS[key]);
+          }
+          return;
+        }
         if (key === 'zhivu-water') {
           const dots = day.waterDots ? normalizeWaterDots(day.waterDots) : null;
           const count = dots ? dots.filter(Boolean).length : 0;
           if (count > 0) {
             tags.push(`Вода (${count}/${WATER_DOTS})`);
           } else if (day.checks['zhivu-water']) {
+            tags.push(LABELS[key]);
+          }
+          return;
+        }
+        if (key === 'zhivu-sun') {
+          const dots = day.sunDots ? normalizeSunDots(day.sunDots) : null;
+          const filled = dots
+            ? SUN_LABELS.filter((label, i) => dots[i])
+            : [];
+          if (filled.length > 0) {
+            tags.push(`Солнце и свет (${filled.join(', ')})`);
+          } else if (day.checks['zhivu-sun']) {
             tags.push(LABELS[key]);
           }
           return;
@@ -1281,6 +1898,18 @@
           if (filled.length > 0) {
             tags.push(`Еда (${filled.join(', ')})`);
           } else if (day.checks['zhivu-food']) {
+            tags.push(LABELS[key]);
+          }
+          return;
+        }
+        if (key === 'zhivu-body') {
+          const dots = day.bodyDots ? normalizeBodyDots(day.bodyDots) : null;
+          const filled = dots
+            ? BODY_LABELS.filter((label, i) => dots[i])
+            : [];
+          if (filled.length > 0) {
+            tags.push(`Физическая активность (${filled.join(', ')})`);
+          } else if (day.checks['zhivu-body']) {
             tags.push(LABELS[key]);
           }
           return;
@@ -1300,6 +1929,74 @@
           ) {
             tags.push(LABELS[key]);
           }
+          return;
+        }
+        if (key === 'zhivu-sleep') {
+          const dots = day.sleepDots ? normalizeSleepDots(day.sleepDots) : null;
+          const filled = dots
+            ? SLEEP_LABELS.filter((label, i) => dots[i])
+            : [];
+          if (filled.length > 0) {
+            tags.push(`Сон (${filled.join(', ')})`);
+          } else if (day.checks['zhivu-sleep']) {
+            tags.push(LABELS[key]);
+          }
+          return;
+        }
+        if (key === 'lublu-him') {
+          const dots = day.himDots ? normalizeHimDots(day.himDots) : null;
+          if (dots && dots[0]) { tags.push(LABELS[key]); }
+          else if (day.checks['lublu-him']) { tags.push(LABELS[key]); }
+          return;
+        }
+        if (key === 'lublu-kids') {
+          const dots = day.kidsDots ? normalizeKidsDots(day.kidsDots) : null;
+          if (dots && dots[0]) { tags.push(LABELS[key]); }
+          else if (day.checks['lublu-kids']) { tags.push(LABELS[key]); }
+          return;
+        }
+        if (key === 'lublu-mom') {
+          const dots = day.momDots ? normalizeMomDots(day.momDots) : null;
+          if (dots && dots[0]) { tags.push(LABELS[key]); }
+          else if (day.checks['lublu-mom']) { tags.push(LABELS[key]); }
+          return;
+        }
+        if (key === 'lublu-dad') {
+          const dots = day.dadDots ? normalizeDadDots(day.dadDots) : null;
+          if (dots && dots[0]) { tags.push(LABELS[key]); }
+          else if (day.checks['lublu-dad']) { tags.push(LABELS[key]); }
+          return;
+        }
+        if (key === 'lublu-selfcare') {
+          const dots = day.selfcareDots ? normalizeSelfcareDots(day.selfcareDots) : null;
+          const filled = dots
+            ? SELFCARE_LABELS.filter((label, i) => dots[i])
+            : [];
+          if (filled.length > 0) {
+            tags.push(`Уход за собой (${filled.join(', ')})`);
+          } else if (day.checks['lublu-selfcare']) {
+            tags.push(LABELS[key]);
+          }
+          return;
+        }
+        if (key === 'raduyus') {
+          const d = day.raduyusDots ? normalizeRaduyusDots(day.raduyusDots) : null;
+          if ((d && d[0]) || day.checks['raduyus']) tags.push(LABELS[key]);
+          return;
+        }
+        if (key === 'tvoryu-creative') {
+          const d = day.tvoryuCreativeDots ? normalizeTvoryuCreativeDots(day.tvoryuCreativeDots) : null;
+          if ((d && d[0]) || day.checks['tvoryu-creative']) tags.push(LABELS[key]);
+          return;
+        }
+        if (key === 'tvoryu-work') {
+          const d = day.tvoryuWorkDots ? normalizeTvoryuWorkDots(day.tvoryuWorkDots) : null;
+          if ((d && d[0]) || day.checks['tvoryu-work']) tags.push(LABELS[key]);
+          return;
+        }
+        if (key === 'blagodaryu') {
+          const d = day.blagodaryuDots ? normalizeBlagodaryuDots(day.blagodaryuDots) : null;
+          if ((d && d[0]) || day.checks['blagodaryu']) tags.push(LABELS[key]);
           return;
         }
         if (day.checks[key]) tags.push(LABELS[key]);
