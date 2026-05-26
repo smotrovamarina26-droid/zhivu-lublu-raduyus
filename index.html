@@ -58,6 +58,18 @@
       text-transform: capitalize;
     }
 
+    .app-intention {
+      margin: 0.85rem 0 1.35rem;
+      padding: 0 0.75rem;
+      font-size: 0.9rem;
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.5;
+      text-align: center;
+      color: #9A7F66;
+      letter-spacing: 0.01em;
+    }
+
     .sections {
       display: flex;
       flex-direction: column;
@@ -84,10 +96,24 @@
     }
 
     .section__title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
       margin-bottom: 1rem;
+      line-height: 1.35;
+    }
+
+    .section__title-main {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .section__title-sub {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      opacity: 0.72;
     }
 
     .items {
@@ -655,9 +681,14 @@
       <p class="date-today" id="date-today"></p>
     </header>
 
+    <p class="app-intention">Я выбираю быть счастливой</p>
+
     <main class="sections">
       <section class="section section--light" style="background-color: #5A5B37;" data-section="zhivu">
-        <h2 class="section__title">ЖИВУ</h2>
+        <h2 class="section__title">
+          <span class="section__title-main">Живу — Тело — «Я есть»</span>
+          <span class="section__title-sub">🌍 Земля</span>
+        </h2>
         <div class="items items--zhivu">
           <div class="item item--zhivu item--air" data-key="zhivu-air">
             <div class="item__content">
@@ -796,7 +827,10 @@
       </section>
 
       <section class="section section--light" style="background-color: #AE4707;" data-section="lublu">
-        <h2 class="section__title">ЛЮБЛЮ</h2>
+        <h2 class="section__title">
+          <span class="section__title-main">Люблю — Сердце — «Я чувствую»</span>
+          <span class="section__title-sub">🔥 Огонь</span>
+        </h2>
         <div class="items">
           <div class="item item--zhivu" data-key="lublu-selfcare-label">
             <div class="item__content">
@@ -854,7 +888,10 @@
       </section>
 
       <section class="section section--dark" style="background-color: #89C0DF;" data-section="raduyus">
-        <h2 class="section__title">РАДУЮСЬ</h2>
+        <h2 class="section__title">
+          <span class="section__title-main">Радуюсь — Душа — «Я наполняюсь»</span>
+          <span class="section__title-sub">🌬️ Воздух</span>
+        </h2>
         <div class="items">
           <div class="item item--zhivu item--raduyus" data-key="raduyus">
             <div class="item__content">
@@ -868,7 +905,10 @@
       </section>
 
       <section class="section section--light" style="background-color: #1D4A5A;" data-section="tvoryu">
-        <h2 class="section__title">ТВОРЮ</h2>
+        <h2 class="section__title">
+          <span class="section__title-main">Творю — Разум — «Я создаю»</span>
+          <span class="section__title-sub">🌊 Вода</span>
+        </h2>
         <div class="items">
           <div class="item item--zhivu item--tvoryu-creative" data-key="tvoryu-creative">
             <div class="item__content">
@@ -890,7 +930,10 @@
       </section>
 
       <section class="section section--dark" style="background-color: #F2D184;" data-section="blagodaryu">
-        <h2 class="section__title">БЛАГОДАРЮ</h2>
+        <h2 class="section__title">
+          <span class="section__title-main">Благодарю — Дух — «Я принимаю и отдаю»</span>
+          <span class="section__title-sub">☀️ Свет</span>
+        </h2>
         <div class="items">
           <div class="item item--zhivu item--blagodaryu" data-key="blagodaryu">
             <div class="item__content">
