@@ -61,13 +61,27 @@
     .app-intention {
       margin: 0.85rem 0 1.35rem;
       padding: 0 0.75rem;
-      font-size: 0.9rem;
-      font-style: italic;
-      font-weight: 500;
-      line-height: 1.5;
       text-align: center;
-      color: #9A7F66;
-      letter-spacing: 0.01em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .app-intention__main {
+      font-size: clamp(1.15rem, 4.2vw, 1.4rem);
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: 0.02em;
+      color: #8F5E45;
+    }
+
+    .app-intention__sub {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      line-height: 1.45;
+      letter-spacing: 0.03em;
+      color: #9A8574;
+      opacity: 0.82;
     }
 
     .sections {
@@ -681,7 +695,10 @@
       <p class="date-today" id="date-today"></p>
     </header>
 
-    <p class="app-intention">Я выбираю быть счастливой</p>
+    <div class="app-intention">
+      <p class="app-intention__main">Я выбираю быть счастливой</p>
+      <p class="app-intention__sub">Тело, сердце, душа, разум, дух — в гармонии</p>
+    </div>
 
     <main class="sections">
       <section class="section section--light" style="background-color: #5A5B37;" data-section="zhivu">
